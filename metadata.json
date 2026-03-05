@@ -1,0 +1,9 @@
+{
+  "name": "NexPrev",
+  "description": "A nova era da gestão previdenciária. SaaS LegalTech premium para advogados previdenciaristas.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}
