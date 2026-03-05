@@ -38,7 +38,7 @@ const MOCK_USERS: User[] = [
 ];
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null); // Start as null for login
+  const [user, setUser] = useState<User | null>(MOCK_USERS[0]); // Auto-login as Socio for demo
   const [auditLogs, setAuditLogs] = useState<AuditLog[]>([]);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [users, setUsers] = useState<User[]>(MOCK_USERS);

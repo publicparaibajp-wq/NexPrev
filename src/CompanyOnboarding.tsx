@@ -149,10 +149,16 @@ export default function CompanyOnboarding() {
             </div>
           </form>
 
-          <div className="mt-8 pt-6 border-t border-white/5 text-center">
+          <div className="mt-8 pt-6 border-t border-white/5 text-center space-y-4">
             <p className="text-sm text-slate-500">
               Precisa de ajuda? <span className="text-nex-electric font-bold cursor-pointer hover:underline">Fale com o suporte</span>
             </p>
+            <button 
+              onClick={() => updateCompanyProfile({ name: 'Escritório Modelo NexPrev', cnpj: '00.000.000/0001-00', address: 'Av. Paulista, 1000', phone: '(11) 99999-9999' })}
+              className="text-[10px] text-slate-600 uppercase tracking-widest font-bold hover:text-nex-electric transition-colors"
+            >
+              Pular Onboarding (Demo)
+            </button>
           </div>
         </div>
 
