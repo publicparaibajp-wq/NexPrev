@@ -34,3 +34,58 @@
 ::-webkit-scrollbar-thumb {
   @apply bg-slate-300 dark:bg-slate-700 rounded-full hover:bg-slate-400 dark:hover:bg-slate-600;
 }
+
+/* NexIA Premium Markdown Styles */
+.markdown-body {
+  @apply text-slate-700 dark:text-slate-300 leading-relaxed;
+}
+
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  @apply text-slate-900 dark:text-white font-bold mt-8 mb-4 tracking-tight;
+}
+
+.markdown-body h1 { @apply text-3xl border-b pb-4 border-slate-100 dark:border-slate-800; }
+.markdown-body h2 { @apply text-2xl; }
+.markdown-body h3 { @apply text-xl text-nex-electric; }
+
+.markdown-body p { @apply mb-4; }
+
+.markdown-body table {
+  @apply w-full border-collapse mb-8 mt-4 rounded-xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800;
+}
+
+.markdown-body th {
+  @apply bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white font-bold p-4 text-left text-xs uppercase tracking-wider border-b border-slate-100 dark:border-slate-800;
+}
+
+.markdown-body td {
+  @apply p-4 text-sm border-b border-slate-50 dark:border-slate-900/50;
+}
+
+.markdown-body tr:last-child td {
+  @apply border-none;
+}
+
+.markdown-body tr:hover td {
+  @apply bg-slate-50/50 dark:bg-slate-800/30 transition-colors;
+}
+
+.markdown-body strong {
+  @apply text-slate-900 dark:text-white font-bold;
+}
+
+.markdown-body blockquote {
+  @apply border-l-4 border-nex-electric bg-nex-electric/5 p-6 my-6 rounded-r-2xl italic text-slate-800 dark:text-slate-200;
+}
+
+.markdown-body ul, .markdown-body ol {
+  @apply mb-6 ml-6 space-y-2;
+}
+
+.markdown-body li {
+  @apply list-disc;
+}
+
+.markdown-body hr {
+  @apply my-10 border-slate-100 dark:border-slate-800;
+}

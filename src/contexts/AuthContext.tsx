@@ -24,6 +24,8 @@ interface AuthContextType {
   removeUser: (id: string) => void;
   companyProfile: CompanyProfile;
   updateCompanyProfile: (profile: Partial<CompanyProfile>) => void;
+  is2FAVerified: boolean;
+  verify2FA: (code: string) => Promise<boolean>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -42,6 +44,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [auditLogs, setAuditLogs] = useState<AuditLog[]>([]);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [users, setUsers] = useState<User[]>(MOCK_USERS);
+  const [is2FAVerified, setIs2FAVerified] = useState(false);
   const [companyProfile, setCompanyProfile] = useState<CompanyProfile>({
     name: '',
     cnpj: '',
@@ -104,6 +107,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     
     if (foundUser) {
       setUser(foundUser);
+      setIs2FAVerified(false);
       addAuditLog('Login', 'Auth', `Usuário logado como ${foundUser.role}`, foundUser);
       return true;
     }
@@ -114,6 +118,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = () => {
     addAuditLog('Logout', 'Auth', 'Usuário deslogado');
     setUser(null);
+    setIs2FAVerified(false);
+  };
+
+  const verify2FA = async (code: string): Promise<boolean> => {
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    if (code === '123456') {
+      setIs2FAVerified(true);
+      addAuditLog('2FA Verificado', 'Segurança', 'Verificação de dois fatores concluída com sucesso.');
+      return true;
+    }
+    return false;
   };
 
   const addAuditLog = (action: string, module: string, details: string, targetUser?: User) => {
@@ -175,7 +192,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       addUser,
       removeUser,
       companyProfile,
-      updateCompanyProfile
+      updateCompanyProfile,
+      is2FAVerified,
+      verify2FA
     }}>
       {children}
     </AuthContext.Provider>

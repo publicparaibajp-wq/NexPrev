@@ -110,10 +110,10 @@ export default function NexIA() {
       - Valor da RMI em valores atuais.
       
       Crie uma seção central chamada '🏆 ANÁLISE DE VANTAGEM FINANCEIRA (ROI)' que contenha:
-      - Uma TABELA COMPARATIVA DE ALTO IMPACTO com as colunas: Regra, Data do Direito, RMI Estimada, Investimento Necessário (se houver), e 'Break-even' (Ponto de Equilíbrio).
+      - Uma TABELA COMPARATIVA DE ALTO IMPACTO com as colunas: Regra, Data do Direito, RMI Estimada, Valor Acumulado (10 anos), Valor Acumulado (20 anos) e 'Break-even' (Ponto de Equilíbrio).
       - Indicação clara da 'MELHOR REGRA' (The Best Option).
-      - Justificativa Técnica do PORQUÊ: Explique matematicamente por que essa regra é superior. Considere o 'Valor Acumulado em 10 e 20 anos' (Expectativa de Vida).
-      - Análise de Custo de Oportunidade: Vale a pena esperar 2 anos para ganhar R$ 500 a mais na RMI? Calcule quanto o cliente deixa de receber nesse período de espera.
+      - Justificativa Técnica do PORQUÊ: Explique matematicamente por que essa regra é superior. Detalhe o cálculo do Valor Acumulado considerando 13º salários e expectativa de vida.
+      - Análise de Custo de Oportunidade: Calcule o 'lucro cessante' (quanto o cliente deixa de receber ao esperar por uma regra com RMI maior).
       
       Finalize com uma 'Sugestão Estratégica NexPrev' para o advogado apresentar ao cliente.
       
@@ -153,7 +153,7 @@ export default function NexIA() {
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
       const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
+        model: "gemini-3-flash-preview",
         contents: prompt,
         config: {
           systemInstruction: systemInstruction,
@@ -187,7 +187,7 @@ export default function NexIA() {
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
       const chat = ai.chats.create({
-        model: "gemini-2.5-flash",
+        model: "gemini-3-flash-preview",
         config: {
           systemInstruction: "Você é o NexIA, assistente jurídico especializado em Direito Previdenciário brasileiro. Você tem conhecimento profundo sobre todos os benefícios do RGPS: Aposentadoria por Idade, Tempo de Contribuição (regras de transição da EC 103/19), Especial, Auxílio-Doença (Incapacidade Temporária), Pensão por Morte, BPC/LOAS, Salário Maternidade, Auxílio-Acidente e Auxílio-Reclusão. Responda de forma clara, técnica e objetiva. Sempre cite que as informações devem ser validadas por um advogado.",
         }

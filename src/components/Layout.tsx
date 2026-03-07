@@ -18,6 +18,7 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { useAuth } from '../contexts/AuthContext';
 import { UserRole } from '../types/auth';
+import SupportChat from './SupportChat';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -153,7 +154,7 @@ export default function DashboardLayout({ children, activeTab, setActiveTab }: L
                 <p className="text-xs text-slate-500">{user?.role}</p>
               </div>
               <div className="w-10 h-10 rounded-full bg-nex-electric flex items-center justify-center text-white font-bold shadow-md">
-                {user?.name.split(' ').map(n => n[0]).join('')}
+                {user?.name?.split(' ').map(n => n[0]).join('') || 'U'}
               </div>
             </div>
           </div>
@@ -163,6 +164,9 @@ export default function DashboardLayout({ children, activeTab, setActiveTab }: L
         <div className="flex-1 overflow-y-auto p-8">
           {children}
         </div>
+        
+        {/* Support Chat Widget */}
+        <SupportChat />
       </main>
     </div>
   );

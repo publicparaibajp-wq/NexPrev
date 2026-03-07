@@ -15,7 +15,8 @@ import {
   Lock,
   EyeOff,
   Trash2,
-  AlertCircle
+  AlertCircle,
+  Loader2
 } from 'lucide-react';
 import { 
   ResponsiveContainer, 
@@ -46,10 +47,9 @@ const transactions = [
 ];
 
 export default function Financial() {
-  const { user, addAuditLog } = useAuth();
-  const [show2FA, setShow2FA] = React.useState(user?.role === UserRole.SOCIO);
-  const [is2FAVerified, setIs2FAVerified] = React.useState(false);
+  const { user, addAuditLog, is2FAVerified, verify2FA } = useAuth();
   const [twoFACode, setTwoFACode] = React.useState('');
+  const [isVerifying, setIsVerifying] = React.useState(false);
   const [confirmModal, setConfirmModal] = React.useState<{ isOpen: boolean; type: 'export' | 'delete'; id?: number }>({
     isOpen: false,
     type: 'export'
@@ -59,11 +59,11 @@ export default function Financial() {
   const isSocio = user?.role === UserRole.SOCIO;
   const isFinanceiro = user?.role === UserRole.FINANCEIRO;
 
-  const handleVerify2FA = () => {
-    if (twoFACode === '123456') {
-      setIs2FAVerified(true);
-      addAuditLog('2FA Verificado', 'Financeiro', 'Usuário autenticado com 2FA');
-    } else {
+  const handleVerify2FA = async () => {
+    setIsVerifying(true);
+    const success = await verify2FA(twoFACode);
+    setIsVerifying(false);
+    if (!success) {
       alert('Código 2FA inválido. Tente 123456');
     }
   };
@@ -113,9 +113,11 @@ export default function Financial() {
           />
           <button 
             onClick={handleVerify2FA}
-            className="w-full py-3 bg-nex-electric text-white rounded-xl font-bold hover:bg-nex-electric/90 transition-all shadow-lg shadow-nex-electric/20"
+            disabled={isVerifying}
+            className="w-full py-3 bg-nex-electric text-white rounded-xl font-bold hover:bg-nex-electric/90 transition-all shadow-lg shadow-nex-electric/20 disabled:opacity-50 flex items-center justify-center"
           >
-            Verificar e Acessar
+            {isVerifying ? <Loader2 className="animate-spin mr-2" size={20} /> : null}
+            {isVerifying ? 'Verificando...' : 'Verificar e Acessar'}
           </button>
         </div>
       </div>
